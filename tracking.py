@@ -5,7 +5,7 @@ trackingLink = 0
 #Get tracking number and courrier from user
 trackingNumber = input("What is your tracking number? ")
 carrier = input("What is the package Carrier? ")
-#Open tracking link
+#Create tracking link
 if carrier=="USPS":
     trackingLink = ("https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=" + trackingNumber)
 if carrier=="usps":
@@ -20,6 +20,7 @@ if carrier=="Fedex":
     trackingLink = ("https://www.fedex.com/wtrk/track/?trknbr=" + trackingNumber)
 if carrier=="fedex":
     trackingLink = ("https://www.fedex.com/wtrk/track/?trknbr=" + trackingNumber)
+#Open tracking link/display error
 if trackingLink == 0:
     print("Your package carrier may be incorrectly formatted or not supported")
 else:
