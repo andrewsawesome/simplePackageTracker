@@ -6,20 +6,13 @@ trackingLink = 0
 trackingNumber = input("What is your tracking number? ")
 carrier = input("What is the package Carrier? ")
 #Create tracking link
-if carrier=="USPS":
-    trackingLink = ("https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=" + trackingNumber)
-if carrier=="usps":
-    trackingLink = ("https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=" + trackingNumber)
-if carrier=="UPS":
-    trackingLink = ("https://www.ups.com/track?sort_by=status&tracknums_displayed=1&TypeOfInquiryNumber=T&loc=en_us&InquiryNumber1=" + trackingNumber + U"&requester=ST")
-if carrier=="ups":
-    trackingLink = ("https://www.ups.com/track?sort_by=status&tracknums_displayed=1&TypeOfInquiryNumber=T&loc=en_us&InquiryNumber1=" + trackingNumber + U"&requester=ST")
-if carrier=="FedEx":
-    trackingLink = ("https://www.fedex.com/wtrk/track/?trknbr=" + trackingNumber)
-if carrier=="Fedex":
-    trackingLink = ("https://www.fedex.com/wtrk/track/?trknbr=" + trackingNumber)
-if carrier=="fedex":
-    trackingLink = ("https://www.fedex.com/wtrk/track/?trknbr=" + trackingNumber)
+match carrier:
+    case "USPS" | "usps":
+        trackingLink = ("https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=" + trackingNumber)
+    case "UPS" | "ups":
+        trackingLink = ("https://www.ups.com/track?sort_by=status&tracknums_displayed=1&TypeOfInquiryNumber=T&loc=en_us&InquiryNumber1=" + trackingNumber + U"&requester=ST")
+    case "FedEx" | "Fedex" | "fedex":
+        trackingLink = ("https://www.fedex.com/wtrk/track/?trknbr=" + trackingNumber)
 #Open tracking link/display error
 if trackingLink == 0:
     print("Your package carrier may be incorrectly formatted or not supported")
