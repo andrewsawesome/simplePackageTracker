@@ -1,35 +1,43 @@
+//Import Scanner to get user input
 import java.util.Scanner;
+//Other imports are to open URL on user's device
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 public class Tracking{
 
     public static void main(String [] args){
+    //Open Scanner to get user input, change delimiter to newline so user presses "enter" between inputs
     Scanner input = new Scanner(System.in);
     input.useDelimiter("/n");
 
+    //Create array to store inputs in
     String [] inputArray = new String[2];
     System.out.println("Enter tracking number, press enter, then enter carrier");
+
+    //Loop for putting input into array
     for (int i = 0; i < 2; i++) {
         inputArray[i] = input.nextLine();
     }
+    //Close Scanner
     input.close();
 
-    
-    processor(Integer.parseInt(inputArray[0]), inputArray[1]);
-    //input.close();
+    //Call method to create url
+    createURL(Integer.parseInt(inputArray[0]), inputArray[1]);
     }
 
 
-    public static void processor(int trackingNumber, String carrier){
-        String trackingLink = "";
+    public static void createURL(int trackingNumber, String carrier){
+        String trackingLink = new String();
 
+        //Check which carrier is selected and use the URL format for the selected carrier
         switch(carrier){
         case "USPS":
         case "usps":
             trackingLink = ("https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=" + trackingNumber);
-            break;
+            break; //Use "break" after each case to avoid every case triggering the last URL format
         case "UPS":
         case "ups":
             trackingLink = ("https://www.ups.com/track?sort_by=status&tracknums_displayed=1&TypeOfInquiryNumber=T&loc=en_us&InquiryNumber1=" + trackingNumber + "&requester=ST");
@@ -72,12 +80,14 @@ public class Tracking{
         }
 
 
-        if(trackingLink !="")
+        //If a carrier is matched, use openURL method. If not, send message to user
+        if(trackingLink.length() != 0)
         {openURL(trackingLink);}
         else{System.out.println("Your package carrier may be incorrectly formatted or not supported");}
         }
 
     public static void openURL(String url){
+        //Open Link in web browser
         try{Desktop.getDesktop().browse(new URI(url));}
         catch(URISyntaxException badURI){System.err.println("Bad URL");}
         catch(IOException badIO){System.err.println("IO Error");}
